@@ -1,28 +1,11 @@
 import discord
-from discord.ext import commands, ipc
-import os
-import configparser
 import mystbin
-from asyncdagpi import Client
-from utils.CustomBot import PenguinBot
-from utils.CustomErrors import *
 
-startup_extensions = ['cogs.members', 'cogs.owner', 'cogs.moderator', 'cogs.fun', "jishaku", "cogs.mute",
-                      'cogs.animals', 'listeners.listener', 'cogs.help_command', 'cogs.images',
-                      'cogs.settings', 'cogs.checks',
-                      'listeners.errors', 'listeners.guilds', 'listeners.moderation',
-                      'listeners.reactionroles', 'listeners.welcomer']
 
-os.environ["JISHAKU_NO_UNDERSCORE"] = "True"
-os.environ["JISHAKU_HIDE"] = "True"
-
-intents = discord.Intents.default()
+intents = discord.flags.Intents().default()
 intents.members = True
 
-config = configparser.ConfigParser()
-config.read('config.ini')
-
-bot = PenguinBot()
+bot = discord.ext.commands.bot.Bot(command_prefix='d,', intents=intents)
 
 @bot.event
 async def on_ready():
@@ -46,11 +29,4 @@ async def on_error(event, *args, **kwargs):
         raise
 
 if __name__ == "__main__":
-    bot.ipc.start()
-    for extension in startup_extensions:
-        try:
-            bot.load_extension(extension)
-        except Exception as e:
-            exc = '{}: {}'.format(type(e).__name__, e)
-            print('Failed to load extension {}\n{}'.format(extension, exc))
-    bot.run(bot.config['token'])
+    bot.run('NzUzMDM3NDY0NTk5NTI3NDg1.YBD56Q.qmgGknZe2r4dx2Vsm3aunlugbE2')
